@@ -441,6 +441,29 @@ Page({
     this.getSharePlan()
   },
 
+  // 下一周
+  handleNextWeek(){
+    let{week,year,time,changeIndex}=this.data
+    if (week + 1 === 53) {
+      week = 1
+      year++
+    }else{
+      week++
+    }
+    time=time+60*60*24*7*1000
+    this.setData({
+      week,year,time
+    })
+    if(changeIndex==0){
+      this.getWeeklyTarget()
+      this.getWeeklySummary()
+      this.getSharePlan()
+    }else{
+      this.getDayPlan()
+    }
+    this.getDateNow()
+},
+
   // 上一周
   handleLastWeek(){
     let{week,year,time,changeIndex}=this.data
@@ -451,6 +474,9 @@ Page({
       week--
     }
     time=time-60*60*24*7*1000
+    this.setData({
+      week,year,time
+    })
     if(changeIndex==0){
       this.getWeeklyTarget()
       this.getWeeklySummary()
@@ -459,9 +485,6 @@ Page({
       this.getDayPlan()
     }
     this.getDateNow()
-    this.setData({
-      week,year
-    })
   },
 
   // 分享数据更新
@@ -498,7 +521,7 @@ Page({
   async handleOtherComplete(e){
     let {info}=e.currentTarget.dataset
     let {year,week}=this.data
-    console.log(info);
+    // console.log(info);
     let data = {
       complete: !info.complete,
       content: info.content,
