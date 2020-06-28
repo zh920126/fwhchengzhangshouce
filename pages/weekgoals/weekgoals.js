@@ -431,7 +431,7 @@ Page({
     month:0,
     days:0,
     time: new Date().getTime(),
-    changeIndex:1,
+    changeIndex:0,
     whichDay:1
   },
   onLoad: function (options) {
@@ -439,6 +439,41 @@ Page({
     this.getWeeklySummary()
     this.getWeeklyTarget()
     this.getSharePlan()
+  },
+
+  // 选择时间
+  async handleChangeTime(e){
+    let {value}=e.detail
+    let {month,year,days,time}=this.data
+    let date=new Date(value)
+    month=date.getMonth()+1
+    year=date.getFullYear()
+    days=date.getDate()
+    time=date.getTime()
+    this.setData({
+      month,year,days,time
+    })
+    this.getDateNow()
+    this.getWeek()
+    this.getDayPlan()
+  },
+
+  // 切换周几
+  async handleChoseDate(e){
+    let {whichDay,time}=this.data
+    let {index}=e.currentTarget.dataset
+    if((index-whichDay)>0){
+      time=time+24*60*60*1000*Math.abs(index-whichDay)
+    }else if((index-whichDay)<0){
+      time=time-24*60*60*1000*Math.abs(index-whichDay)
+    }
+    this.setData({
+      whichDay:index,
+      time
+    })
+    this.getDateNow()
+    // 同时重新获取数据
+    this.getDayPlan()
   },
 
   // 切换周--天
@@ -454,6 +489,38 @@ Page({
     }else{
       this.getDateNow()
       this.getDayPlan()
+    }
+  },
+
+  // 更新日总结改进
+  async handleUpdateSummary(e){
+    let {value} = e.detail
+    let {info}=e.currentTarget.dataset
+    let {year,week,whichDay}=this.data
+    let data={
+      content:value,
+      parentType:info.parentType,
+      userId:wx.getStorageSync('userID'),
+      week:+week,
+      year:+year,
+      whichDay:+whichDay
+    }
+    if(info.id){
+      data.id=info.id
+    }
+    let res=await app.myAxios({
+      method:'post',
+      url:'/anonymous/updateDayPlan',
+      data
+    })
+    if(res.data.statusCode==200){
+      this.getDayPlan()
+    }else{
+      wx.showToast({
+        title:'更新数据失败,请重试',
+        icon:'none',
+        duration:500
+      })
     }
   },
 
