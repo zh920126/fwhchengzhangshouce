@@ -61,8 +61,8 @@
 			"list": [
 				{
 					"id": 0,
-					"name": "pages/monthgoals/monthgoals",
-					"pathName": "pages/monthgoals/monthgoals",
+					"name": "pages/weekgoals/weekgoals",
+					"pathName": "pages/weekgoals/weekgoals",
 					"query": "",
 					"scene": null
 				}
