@@ -1,0 +1,2 @@
+/* 全局引入字体图标 */
+@import '/static/styles/iconfont.wxss'

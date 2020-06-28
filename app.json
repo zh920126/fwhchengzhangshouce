@@ -1,0 +1,18 @@
+{
+  "pages":[
+    "pages/index/index",
+    "pages/blueprint/blueprint",
+    "pages/quarterlygoals/quarterlygoals",
+    "pages/monthgoals/monthgoals",
+    "pages/weekgoals/weekgoals",
+    "pages/daygoals/daygoals"
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#EDEDED",
+    "navigationBarTitleText": "樊文花成长手册",
+    "navigationBarTextStyle":"black"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

@@ -1,0 +1,73 @@
+<!-- 顶部部分 -->
+<view class="index-top">
+  <view class="index-header">高效工作 快乐生活</view>
+  <view class="index-title">改变从今天开始</view>
+</view>
+<!-- 中间卡片部分 -->
+<view class="card">
+  <!-- 顶部背景 -->
+  <view class="bg">
+    <block wx:if="{{userMsg.avatarUrl}}">
+      <view class="userAvatar">
+        <image class="" mode="widthFix" src="{{userMsg.avatarUrl}}"></image>
+      </view>
+    </block>
+    <block wx:else>
+      <view class="userAvatar">
+        <button open-type="getUserInfo" bindgetuserinfo="handleGetUserInfo">请登录</button>
+      </view>
+    </block>
+  </view>
+  <!-- 用户信息部分 -->
+  <view class="userInfo">
+			      <view class="user-name">
+			        <view class="user-name-title">
+			          <view>姓名</view>
+			          <view class="name">{{userMsg.nickName}}</view>
+			        </view>
+			        <view class="user-name-phone">
+			          <view>手机</view>
+			          <view class="name">
+									<input type="text" value="{{userInfo.mobile}}" bind:blur="handleUserPhone" data-info="{{userInfo}}"/>
+								</view>
+			        </view>
+			      </view>
+			      <view class="item">
+			        <view>单位</view>
+			        <view>广州樊文花化妆品有限公司</view>
+			      </view>
+			      <view class="item">
+			        <view>地址</view>
+			        <view>
+								<input type="text" value="{{userInfo.address}}" bind:blur="handleUserAddress" data-info="{{userInfo}}"/>
+							</view>
+			      </view>
+			      <view class="item-qq">
+			        <view class="qq">
+			          <view class="iconfont icon-QQ"></view>
+			          <view class="name">
+										<input type="text" value="{{userInfo.qqNumber}}" bind:blur="handleUserQQ" data-info="{{userInfo}}"/>
+								</view>
+			        </view>
+			        <view class="wechat">
+			          <view class="iconfont icon-weixin"></view>
+			          <view class="name">
+									<input type="text" value="{{userInfo.wechatNumber}}" bind:blur="handleUserWechat" data-info="{{userInfo}}"/>
+								</view>
+			        </view>
+			      </view>
+			      <view class="email">
+			          <view class="iconfont icon-email"></view>
+			          <view class="email-des">
+                  <input type="text" value="{{userInfo.email}}" bind:blur="handleUserEmail" data-info="{{userInfo}}"/>
+								</view>
+			      </view>
+			</view>
+</view>
+
+<!-- 底部导航 -->
+<view class="user-dream">
+  <block wx:for="{{userDream}}" wx:key="url">
+    <view class="user-dream-item" bind:tap="goToelsePage" data-info="{{item}}">{{item.name}}</view>
+  </block>
+</view>
