@@ -1,11 +1,105 @@
-// pages/monthgoals/monthgoals.js
+const app = getApp();
+import regeneratorRuntime from '../../lib/runtime';
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
-
+      table: [{
+        id: 1,
+        name: '工作指标',
+        children: [{
+            complete: false,
+            content: '',
+            importanceLevel: '',
+            aimMeasures: '',
+            month: '',
+            type: '工作指标',
+            year: new Date().getFullYear()
+          },
+          {
+            complete: false,
+            content: '',
+            importanceLevel: '',
+            aimMeasures: '',
+            month: '',
+            type: '工作指标',
+            year: new Date().getFullYear()
+          },
+          {
+            complete: false,
+            content: '',
+            importanceLevel: '',
+            aimMeasures: '',
+            month: '',
+            type: '工作指标',
+            year: new Date().getFullYear()
+          },
+          {
+            complete: false,
+            content: '',
+            importanceLevel: '',
+            aimMeasures: '',
+            month: '',
+            type: '工作指标',
+            year: new Date().getFullYear()
+          },
+          {
+            complete: false,
+            content: '',
+            importanceLevel: '',
+            aimMeasures: '',
+            month: '',
+            type: '工作指标',
+            year: new Date().getFullYear()
+          },
+        ]
+      },
+      {
+        id: 2,
+        name: '其他目标',
+        children: [{
+            complete: false,
+            content: '',
+            importanceLevel: '学习计划',
+            aimMeasures: '',
+            month: '',
+            type: '其他目标',
+            year: new Date().getFullYear()
+          },
+          {
+            complete: false,
+            content: '',
+            importanceLevel: '健康计划',
+            aimMeasures: '',
+            month: '',
+            type: '其他目标',
+            year: new Date().getFullYear()
+          },
+          {
+            complete: false,
+            content: '',
+            importanceLevel: '本季度反省',
+            aimMeasures: '',
+            month: '',
+            type: '其他目标',
+            year: new Date().getFullYear()
+          },
+        ]
+      }
+    ],
+    reasonArr: [{
+        content: '',
+        type: '未完成目标的障碍和原因'
+      },
+      {
+        content: '',
+        type: '客服障碍的对策和方法'
+      },
+      {
+        content: '',
+        type: '本月份创新与收获'
+      }
+    ],
+    month: new Date().getMonth() + 1,
+    year: new Date().getFullYear()
   },
 
   /**
