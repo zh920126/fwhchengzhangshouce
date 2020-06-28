@@ -431,7 +431,7 @@ Page({
     month:0,
     days:0,
     time: new Date().getTime(),
-    changeIndex:0,
+    changeIndex:1,
     whichDay:1
   },
   onLoad: function (options) {
@@ -439,6 +439,162 @@ Page({
     this.getWeeklySummary()
     this.getWeeklyTarget()
     this.getSharePlan()
+  },
+
+  // 切换周--天
+  async handleChangeTab(e){
+    let {index}=e.currentTarget.dataset
+    this.setData({
+      changeIndex:index
+    })
+    if(index==0){
+      this.getWeeklyTarget()
+      this.getWeeklySummary()
+      this.getSharePlan()
+    }else{
+      this.getDateNow()
+      this.getDayPlan()
+    }
+  },
+
+  // 更新日目标完成状态
+  async handleComplete2(e){
+    let {info}=e.currentTarget.dataset
+    let {year,week,whichDay}=this.data
+    let data={
+      complete:!info.complete,
+      content:info.content,
+      parentType:info.parentType,
+      type:info.type,
+      time:info.time,
+      userId:wx.getStorageSync('userID'),
+      week:+week,
+      year:+year,
+      whichDay:+whichDay
+    }
+    if(info.id){
+      data.id=info.id
+      let res=await app.myAxios({
+        method:'post',
+        url:'/anonymous/updateDayPlan',
+        data
+      })
+      // console.log(res)
+      if(res.data.statusCode==200){
+        this.getDayPlan()
+      }else{
+        wx.showToast({
+          title:'更新数据失败,请重试',
+          icon:'none',
+          duration:500
+        })
+      }
+    }
+  },
+
+  // 更新日内容
+  async handleUpdateContent(e){
+    let {value} = e.detail
+    let {info}=e.currentTarget.dataset
+    let {year,week,whichDay}=this.data
+    let data={
+      complete:info.complete,
+      content:value,
+      parentType:info.parentType,
+      type:info.type,
+      time:info.time,
+      userId:wx.getStorageSync('userID'),
+      week:+week,
+      year:+year,
+      whichDay:+whichDay
+    }
+    if(info.id){
+      data.id=info.id
+    }
+    let res=await app.myAxios({
+      method:'post',
+      url:'/anonymous/updateDayPlan',
+      data
+    })
+    if(res.data.statusCode==200){
+      this.getDayPlan()
+    }else{
+      wx.showToast({
+        title:'更新数据失败,请重试',
+        icon:'none',
+        duration:500
+      })
+    }
+  },
+
+  // 日计划选择时间
+  async bindDateChange(e){
+    let {value} = e.detail
+    let {info}=e.currentTarget.dataset
+    let {year,week,whichDay}=this.data
+    let data={
+      complete:info.complete,
+      content:info.content,
+      parentType:info.parentType,
+      type:info.type,
+      time:value,
+      userId:wx.getStorageSync('userID'),
+      week:+week,
+      year:+year,
+      whichDay:+whichDay
+    }
+    if(info.id){
+      data.id=info.id
+    }
+    let res=await app.myAxios({
+      method:'post',
+      url:'/anonymous/updateDayPlan',
+      data
+    })
+    if(res.data.statusCode==200){
+      this.getDayPlan()
+    }else{
+      wx.showToast({
+        title:'更新数据失败,请重试',
+        icon:'none',
+        duration:500
+      })
+    }
+  },
+
+  // 更新日计划分类
+  async handleChangeType(e){
+    let {value} = e.detail
+    let {info}=e.currentTarget.dataset
+    let {year,week,whichDay}=this.data
+     let data={
+      complete:info.complete,
+      content:info.content,
+      parentType:info.parentType,
+      type:value,
+      time:info.time,
+      userId:wx.getStorageSync('userID'),
+      week:+week,
+      year:+year,
+      whichDay:+whichDay
+    }
+    if(info.id){
+      data.id=info.id
+    }
+    let res=await app.myAxios({
+      method:'post',
+      url:'/anonymous/updateDayPlan',
+      data
+    })
+    if(res.data.statusCode==200){
+      this.getDayPlan()
+    }else{
+      wx.showToast({
+        title:'更新数据失败,请重试',
+        icon:'none',
+        duration:500
+      })
+    }
   },
 
   // 下一周
@@ -776,25 +932,25 @@ Page({
       })
     }
     
-},
+  },
 
-// 获取时间
-getDateNow(){
-  // console.log(this.time)
-  let {time,year,month,days,whichDay}=this.data
-  let date=new Date(time)
-  year=date.getFullYear()
-  month=date.getMonth()+1
-  days=date.getDate()
-  whichDay=date.getDay()
-  whichDay=whichDay===0?7:whichDay
-  this.setData({
-    year,
-    month,
-    days,
-    whichDay
-  })
-},
+  // 获取时间
+  getDateNow(){
+    // console.log(this.time)
+    let {time,year,month,days,whichDay}=this.data
+    let date=new Date(time)
+    year=date.getFullYear()
+    month=date.getMonth()+1
+    days=date.getDate()
+    whichDay=date.getDay()
+    whichDay=whichDay===0?7:whichDay
+    this.setData({
+      year,
+      month,
+      days,
+      whichDay
+    })
+  },
 
   // 时间转化为周数
   getWeek() {
@@ -1121,6 +1277,271 @@ getDateNow(){
     }else{
       wx.showToast({
         title:'获取数据失败,请重试',
+        icon:'none',
+        duration:500
+      })
+    }
+  },
+
+  // 获取日计划数据
+  async getDayPlan(){
+    let {week,whichDay,year}=this.data
+    let data={
+      userId:wx.getStorageSync('userID'),
+      week:+week,
+      whichDay:+whichDay,
+      year:+year
+    }
+    let res=await app.myAxios({
+      method:'post',
+      url:'/anonymous/findAimsByConditionForDayPlan',
+      data
+    })
+    console.log(data);
+    console.log(res);
+    if(res.data.statusCode==200&&res.data.result){
+      let {result}=res.data
+      // 数据初始化
+      let {todayThings,todaySummary}=this.data
+      todayThings=[
+        {
+          index:1,
+          complete:false,
+          time:'',
+          parentType:'今日事项',
+          type:'',
+          content:''
+        },
+        {
+          index:2,
+          complete:false,
+          time:'',
+          parentType:'今日事项',
+          type:'',
+          content:''
+        },
+        {
+          index:3,
+          complete:false,
+          time:'',
+          parentType:'今日事项',
+          type:'',
+          content:''
+        },
+        {
+          index:4,
+          complete:false,
+          time:'',
+          parentType:'今日事项',
+          type:'',
+          content:''
+        },
+        {
+          index:5,
+          complete:false,
+          time:'',
+          parentType:'今日事项',
+          type:'',
+          content:''
+        },
+        {
+          index:6,
+          complete:false,
+          time:'',
+          parentType:'今日事项',
+          type:'',
+          content:''
+        },
+        {
+          index:7,
+          complete:false,
+          time:'',
+          parentType:'今日事项',
+          type:'',
+          content:''
+        },
+        {
+          index:8,
+          complete:false,
+          time:'',
+          parentType:'今日事项',
+          type:'',
+          content:''
+        },
+        {
+          index:9,
+          complete:false,
+          time:'',
+          parentType:'今日事项',
+          type:'',
+          content:''
+        },
+        {
+          index:10,
+          complete:false,
+          time:'',
+          parentType:'今日事项',
+          type:'',
+          content:''
+        },
+        {
+          index:11,
+          complete:false,
+          time:'',
+          parentType:'今日事项',
+          type:'',
+          content:''
+        },
+        {
+          index:12,
+          complete:false,
+          time:'',
+          parentType:'今日事项',
+          type:'',
+          content:''
+        },
+        {
+          index:13,
+          complete:false,
+          time:'',
+          parentType:'今日事项',
+          type:'',
+          content:''
+        },
+        {
+          index:14,
+          complete:false,
+          time:'',
+          parentType:'今日事项',
+          type:'',
+          content:''
+        },
+        {
+          index:15,
+          complete:false,
+          time:'',
+          parentType:'今日事项',
+          type:'',
+          content:''
+        },
+        {
+          index:16,
+          complete:false,
+          time:'',
+          parentType:'今日事项',
+          type:'',
+          content:''
+        },
+        {
+          index:17,
+          complete:false,
+          time:'',
+          parentType:'今日事项',
+          type:'',
+          content:''
+        },{
+          index:18,
+          complete:false,
+          time:'',
+          parentType:'今日事项',
+          type:'',
+          content:''
+        }
+      ],
+      todaySummary=[
+        {
+          parentType:'今日总结',
+          content:''
+        },
+        {
+          parentType:'今日总结',
+          content:''
+        },
+        {
+          parentType:'今日总结',
+          content:''
+        },
+        {
+          parentType:'今日总结',
+          content:''
+        },
+        {
+          parentType:'今日总结',
+          content:''
+        },
+        {
+          parentType:'今日总结',
+          content:''
+        },
+        {
+          parentType:'今日总结',
+          content:''
+        },
+        {
+          parentType:'今日总结',
+          content:''
+        },
+        {
+          parentType:'今日总结',
+          content:''
+        },
+        {
+          parentType:'今日总结',
+          content:''
+        },
+        {
+          parentType:'今日总结',
+          content:''
+        },
+        {
+          parentType:'今日总结',
+          content:''
+        },
+        {
+          parentType:'今日总结',
+          content:''
+        },
+        {
+          parentType:'今日总结',
+          content:''
+        },
+        {
+          parentType:'今日总结',
+          content:''
+        },
+        {
+          parentType:'今日总结',
+          content:''
+        },
+        {
+          parentType:'今日总结',
+          content:''
+        },
+        {
+          parentType:'今日总结',
+          content:''
+        }
+      ]
+      let j=0
+      let k=0
+        result.forEach((v,i) => {
+          if(v.parentType==='今日事项'){
+            todayThings[j]=v  
+            todayThings.length=18
+            j++
+          }
+          if(v.parentType==='今日总结'){
+            todaySummary[k]=v
+            todaySummary.length=18
+            k++
+          }
+      })
+      this.setData({
+        todayThings,todaySummary
+      })
+    }else{
+      wx.showToast({
+        title:'获取日计划失败,请重试',
         icon:'none',
         duration:500
       })
