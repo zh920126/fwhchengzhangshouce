@@ -60,9 +60,10 @@
 			"current": -1,
 			"list": [
 				{
-					"id": -1,
-					"name": "pages/blueprint/blueprint",
-					"pathName": "pages/blueprint/blueprint",
+					"id": 0,
+					"name": "pages/monthgoals/monthgoals",
+					"pathName": "pages/monthgoals/monthgoals",
+					"query": "",
 					"scene": null
 				}
 			]

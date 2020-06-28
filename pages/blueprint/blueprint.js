@@ -353,8 +353,138 @@ Page({
         ]
       },
     ],
-    changeIndex: 0,
-    completionTime: 3
+    changeIndex: 2
+  },
+
+  // 人生蓝图3是否完成
+  async handleComplete(e){
+    let {info}=e.currentTarget.dataset
+    let data=info
+    data.userid=wx.getStorageSync('userID');
+    //已经写有内容的才能标注是否完成
+    if(data.id){
+      data.complete=!data.complete
+      let res=await app.myAxios({
+        url:'/anonymous/updateBlueprintDetailed',
+        method:'post',
+        data
+      })
+      if(res.data.statusCode==200){
+        // 先对页面进行更新,再发请求
+        // let {cateList}=this.data
+        // cateList.forEach((v,i)=>{
+        //   if(v.name===data.parentType){
+        //     v.children.forEach(v1=>{
+        //       if(v1.id===data.id){
+        //         v1.complete=!v.complete
+        //       }
+        //     })
+        //   }
+        // })
+        // this.setData({
+        //   cateList
+        // })
+        this.viewBlPrint3()
+      }else{
+        wx.showToast({
+          title:'更新数据失败,请重试',
+          icon:'none',
+          duration:500
+        })
+      }
+    }
+  },
+
+  // 人生蓝图3起止时间更新
+  async bindDateChange(e,value2){
+    let {value}=e.detail
+    let {info}=e.currentTarget.dataset
+    let data =info
+    data.startTime=value
+    data.userid=wx.getStorageSync('userID');
+    let res=await app.myAxios({
+      url:'/anonymous/updateBlueprintDetailed',
+      method:'post',
+      data
+    })
+    if(res.data.statusCode==200){
+      this.viewBlPrint3()
+    }else{
+      wx.showToast({
+        title:'更新数据失败,请重试',
+        icon:'none',
+        duration:500
+      })
+    }
+  },
+
+  // 人生蓝图3方法措施更新
+  async handleMeasures(e){
+    let {value}=e.detail
+    let {info}=e.currentTarget.dataset
+    let data =info
+    data.measures=value
+    data.userid=wx.getStorageSync('userID');
+    let res=await app.myAxios({
+      url:'/anonymous/updateBlueprintDetailed',
+      method:'post',
+      data
+    })
+    if(res.data.statusCode==200){
+      this.viewBlPrint3()
+    }else{
+      wx.showToast({
+        title:'更新数据失败,请重试',
+        icon:'none',
+        duration:500
+      })
+    }
+  },
+
+  // 人生蓝图3目标内容更新
+  async handleContent(e){
+    let {value}=e.detail
+    let {info}=e.currentTarget.dataset
+    let data =info
+    data.content=value
+    data.userid=wx.getStorageSync('userID');
+    let res=await app.myAxios({
+      url:'/anonymous/updateBlueprintDetailed',
+      method:'post',
+      data
+    })
+    if(res.data.statusCode==200){
+      this.viewBlPrint3()
+    }else{
+      wx.showToast({
+        title: '更新数据失败,请重试',
+        icon:'none',
+        duration:500
+      });
+    }
+  },
+
+  // 人生蓝图3类别更新
+  async handleCate(e){
+    let {value}=e.detail
+    let {info}=e.currentTarget.dataset
+    let data =info
+    data.type=value
+    data.userid=wx.getStorageSync('userID');
+    let res= await app.myAxios({
+      url:'/anonymous/updateBlueprintDetailed',
+      method:'post',
+      data
+    })
+    if(res.data.statusCode==200){
+      this.viewBlPrint3()
+    }else{
+      wx.showToast({
+        title: '更新数据失败,请重试',
+        icon:'none',
+        duration:500
+      });
+    }
   },
 
   // 蓝图2数据更新
@@ -382,14 +512,13 @@ Page({
     if (res.data.statusCode == 200) {
       this.getUserBlPrint2()
     } else {
-      uni.showToast({
+      wx.showToast({
         title: '更新失败,请重试',
         duration: 500,
         icon: 'none'
       })
     }
   },
-
 
   // 蓝图1数据更新
   async handleUpdate3(e) {
@@ -415,7 +544,7 @@ Page({
     if (res.data.statusCode == 200) {
       this.getUserBlPrint()
     } else {
-      uni.showToast({
+      wx.showToast({
         title: '更新失败,请重试',
         duration: 500,
         icon: 'none'
@@ -542,7 +671,7 @@ Page({
         arr
       })
     } else {
-      uni.showToast({
+      wx.showToast({
         title: '获取人生蓝图1数据失败,请重试',
         duration: 500,
         icon: 'none'
@@ -552,9 +681,7 @@ Page({
 
   // tab栏切换
   async handleClick(e) {
-    console.log(e)
     let {index} = e.currentTarget.dataset
-    console.log(index);
     //判断用户点击的是哪一项
     if (index == 0) {
       this.getUserBlPrint()

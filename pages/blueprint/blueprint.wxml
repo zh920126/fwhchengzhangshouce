@@ -23,19 +23,67 @@
     </view>
   </block>
 </view>
-
 <!-- 表格部分--人生蓝图2 -->
-		<view class="table" wx:elif="{{changeIndex===1}}">
-			<view class="table-thead">
-				<text>类别</text>
-				<text>近期目标(5年内)</text>
+<view class="table" wx:elif="{{changeIndex===1}}">
+  <view class="table-thead">
+    <text>类别</text>
+    <text>近期目标(5年内)</text>
+  </view>
+  <block wx:for="{{array}}" wx:key="type">
+    <view class="tr">
+      <view class="td1">{{item.type}}</view>
+      <view class="td2">
+        <textarea bind:blur="handleUpdate5" data-index="{{index}}" maxlength="-1" value="{{item.content}}"></textarea>
+      </view>
+    </view>
+  </block>
+</view>
+
+<!-- 表格部分--人生蓝图3 -->
+		<view class="table" wx:else>
+			<!-- 顶部部分 -->
+			<view class="title-head">
+				<block wx:for="{{cate}}" wx:key="name">
+					<view class="">{{item.name}}</view>
+				</block>
 			</view>
-			<block wx:for="{{array}}" wx:key="type">
-				<view class="tr">
-					<view class="td1">{{item.type}}</view>
-					<view class="td2">
-						<textarea bind:blur="handleUpdate5" data-index="{{index}}" maxlength="-1" value="{{item.content}}"></textarea>
+
+			<!-- 内容部分 -->
+			<block wx:for="{{cateList}}" wx:key="name">
+				<view class="content">
+					<view class="content-left">{{item.name}}</view>
+					<view class="contain">
+						<block wx:for="{{item.children}}" wx:for-item="item2" wx:key="count">
+							<view class="content-right">
+								<!-- 类别 -->
+								<view>
+									<input type="text" bind:blur="handleCate" data-info="{{item2}}" value="{{item2.type}}" />
+								</view>
+								<!-- 序号 -->
+								<view>{{item2.count}}</view>
+								<!-- 目标内容 -->
+								<view>
+								  <textarea bind:blur="handleContent" data-info="{{item2}}" value="{{item2.content}}"></textarea>
+								</view>
+								<!-- 方法措施 -->
+								<view>
+									<textarea bind:blur="handleMeasures" data-info="{{item2}}" value="{{item2.measures}}"></textarea>
+								</view>
+								<!-- 选择时间 -->
+								<view>
+								 <picker mode="date" value="{{item2.startTime}}" data-info="{{item2}}" bind:change="bindDateChange">
+										<view class="picker">
+											<text style="opacity:0">选择时间</text>
+											<text>{{item2.startTime==null?'':item2.startTime}}</text>
+										</view>
+									</picker>
+								</view>
+								<!-- 完成打勾 -->
+								<view class="{{item2.complete==true?'iconfont icon-zhengque':''}}" bind:tap="handleComplete" data-info="{{item2}}"></view>
+							</view>
+						</block>
 					</view>
 				</view>
 			</block>
+
 		</view>
