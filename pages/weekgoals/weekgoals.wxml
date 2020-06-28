@@ -1,2 +1,108 @@
-<!--pages/weekgoals/weekgoals.wxml-->
-<text>pages/weekgoals/weekgoals.wxml</text>
+<!-- 显示周 -->
+<block wx:if="{{changeIndex===0}}">
+  <!-- 顶部tab栏 -->
+  <view class="tabbar">
+    <view class="weekTab">
+      <block wx:for="{{weekDays}}" wx:key="item">
+        <view bind:tap="handleChangeTab" date-index="{{index}}" class="{{changeIndex===index?'on':''}}">
+          {{item}}
+        </view>
+      </block>
+    </view>
+    <view class="week-change">
+      <view class="tab" bind:tap="handleLastWeek">上一周</view>
+      <view class="tab">{{year}}年 第{{week}}周</view>
+      <view class="tab" bind:tap="handleNextWeek">下一周</view>
+    </view>
+  </view>
+  <!-- 表格数据部分 -->
+  <view class="week">
+    <!-- 左边表格 -->
+    <view class="week-left">
+      <view class="week-left-item">上周总结</view>
+      <view class="week-left-item">目标完成情况</view>
+      <block wx:for="{{weekPerformance}}" wx:key="*this">
+        <view class="week-left-item">
+          <textarea class="mytext" value="{{item.content}}" bind:blur="handleWeekPerformance" data-info="{{item}}"></textarea>
+        </view>
+      </block>
+      <view class="week-left-item">未完成目标的原因及障碍</view>
+      <block wx:for="{{reason}}" wx:key="*this">
+        <view class="week-left-item">
+          <textarea class="mytext" bind:blur="handleReason" data-info="{{item}}" value="{{item.content}}"></textarea>
+        </view>
+      </block>
+      <view class="week-left-item">克服障碍的对策和方法</view>
+      <block wx:for="{{service}}" wx:key="*this">
+        <view class="week-left-item">
+          <textarea class="mytext" bind:blur="handleService" data-info="{{item}}" value="{{item.content}}"></textarea>
+        </view>
+      </block>
+      <view class="week-left-item">本周创新与收获</view>
+      <block wx:for="{{harvest}}" wx:key="*this">
+        <view class="week-left-item">
+          <textarea class="mytext" bind:blur="handleHarvest" data-info="{{item}}" value="{{item.content}}"></textarea>
+        </view>
+      </block>
+    </view>
+    <!-- 右边表格 -->
+    <view class="week-right">
+      <view class="week-right-title">
+        <view class="left">序号</view>
+        <view class="center">
+          <view class="icon">
+            <text>本周目标</text>
+          </view>
+          <view class="description">
+            <view>1.请在上周五的规划填写</view>
+            <view>2.按目标重要程度规划有限顺序</view>
+            <view>3.完成一项,在完成时限处打勾</view>
+          </view>
+        </view>
+        <view class="right">完成期限</view>
+      </view>
+      <block wx:for="{{weeklyPlan}}" wx:key="*this">
+        <view class="week-right-content">
+          <view class="left">{{index+1}}</view>
+          <view class="center">
+            <textarea class="mytext" value="{{item.content}}" bind:blur="handleUpdatePlan" data-info="{{item}}"></textarea>
+          </view>
+          <view class="right {{item.complete==true?'iconfont icon-zhengque':''}}" bind:tap="handleComplete" data-info="{{item}}"></view>
+        </view>
+      </block>
+    </view>
+  </view>
+  <!-- 底部图片以及其他计划部分 -->
+  <view class="footer">
+    <view class="footer-left">广告位</view>
+    <view class="footer-right">
+      <view class="footer-right-title">
+        <view class="title-left">本周其他目标</view>
+        <view class="title-right">请注意规划你的生活，平衡你的人生，以下目标做到打'√',本周有特别的日子吗？请标注 (生日/节日/纪念日)</view>
+      </view>
+      <block wx:for="{{otherPlan}}" wx:key="type">
+        <view class="footer-right-content">
+          <view class="content-left">{{item.type}}</view>
+          <view class="content-center">
+            <textarea class="mytext" value="{{item.content}}" bind:blur="handleOtherPlan" data-info="{{item}}"></textarea>
+          </view>
+          <view class="content-right">
+            <view class="{{item.complete==true?'iconfont icon-zhengque':''}}" bind:tap="handleOtherComplete" data-info="{{item}}"></view>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+  <!-- 分享部分 -->
+  <view class="share">
+    <view class="share-top">本周最想分享的三点</view>
+    <block wx:for="{{shareArray}}" wx:key="type">
+      <view class="share-content">
+        <view class="share-content-left">{{item.type}}</view>
+        <view class="share-content-right">
+          <textarea value="{{item.content}}" bind:blur="handleShare" data-info="{{item}}"></textarea>
+        </view>
+      </view>
+    </block>
+  </view>
+</block>
