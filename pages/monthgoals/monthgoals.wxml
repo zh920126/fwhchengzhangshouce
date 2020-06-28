@@ -46,14 +46,13 @@
   </block>
 </view>
 <!-- 月度总结部分 -->
-				<view class="box">
-				  <view class="quarter">本月度的目标总结(请在每季度末回到本业对应上表总结分析)</view>
-				  <view class="unfinished-part">
-				  </view>
-				  <block wx:for="{{reasonArr}}" wx:key="type">
-				    <view class="reason">
-				      <text>{{item.type}}</text>
-				      <textarea value="{{item.content}}" bind:blur="handleReason" data-info="{{item}}"></textarea>
-				    </view>
-				  </block>
-				</view>
+<view class="box">
+  <view class="quarter">本月度的目标总结(请在每季度末回到本业对应上表总结分析)</view>
+  <view class="unfinished-part"></view>
+  <block wx:for="{{reasonArr}}" wx:key="type">
+    <view class="reason">
+      <text>{{item.type}}</text>
+      <textarea value="{{item.content}}" bind:blur="handleReason" data-info="{{item}}"></textarea>
+    </view>
+  </block>
+</view>
