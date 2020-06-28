@@ -1,2 +1,26 @@
-<!--pages/blueprint/blueprint.wxml-->
-<text>pages/blueprint/blueprint.wxml</text>
+<!-- 顶部tab栏 -->
+<view class="head">
+  <view class="tabbar">
+    <block wx:for="{{tabs}}" wx:key="name">
+      <view bind:tap="handleClick" data-index="index" class="tab {{changeIndex==index? 'on':''}}">
+        {{item.name}}
+      </view>
+    </block>
+  </view>
+</view>
+
+<!-- 表格部分--人生蓝图1 -->
+		<view class="table" wx:if="{{changeIndex===0}}">
+			<view class="table-thead">
+				<text>类别</text>
+				<text>近期目标(1~3年内)</text>
+			</view>
+			<block wx:for="{{arr}}" :key="type">
+				<view class="tr">
+					<view class="td1">{{item.type}}</view>
+					<view class="td2">
+						<textarea bind:blur="handleUpdate3" data-index="{{index}}" maxlength="-1" value="{{item.content}}"></textarea>
+					</view>
+				</view>
+			</block>
+		</view>

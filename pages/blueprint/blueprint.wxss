@@ -1,1 +1,216 @@
-/* pages/blueprint/blueprint.wxss */
+page {
+  background: #EFF3F6;
+}
+.head {
+  background: #fff;
+  height: 50rpx;
+  box-sizing: border-box;
+  padding: 7rpx;
+}
+.tabbar {
+  margin: auto;
+  width: 378rpx;
+  height: 36rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #F8F8F8;
+  border-radius: 5rpx;
+  overflow: hidden;
+}
+.tabbar .tab {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 15rpx;
+  color: #404040;
+}
+.tabbar .on {
+  color: #FFFFFF;
+  background: #2ece94;
+}
+.table {
+  border: 1rpx solid #1C5E55;
+  margin: 0 14rpx;
+  color: #219d9c;
+  background: #fff;
+}
+.table-thead {
+  height: 40rpx;
+  display: flex;
+  background: #22705D;
+}
+.table-thead text {
+  width: 72rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1rpx solid #1C5E55;
+  border-left: 1rpx solid #1C5E55;
+  font-size: 13rpx;
+  color: #fff;
+  font-weight: bold;
+}
+.table-thead text:nth-child(2) {
+  flex: 1;
+}
+.table .title-head {
+  display: flex;
+  height: 40rpx;
+}
+.table .title-head > view {
+  box-sizing: border-box;
+  border-bottom: 1rpx solid #1C5E55;
+  border-left: 1rpx solid #1C5E55;
+  background: #22705D;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 13rpx;
+  color: #fff;
+  font-weight: bold;
+}
+.table .title-head > view:first-child {
+  width: 72rpx;
+  border-left: 0rpx;
+}
+.table .title-head > view:nth-child(2) {
+  width: 72rpx;
+}
+.table .title-head > view:nth-child(3) {
+  width: 36rpx;
+}
+.table .title-head > view:nth-child(4) {
+  width: 210rpx;
+}
+.table .title-head > view:nth-child(5) {
+  flex: 1;
+}
+.table .title-head > view:nth-child(6) {
+  width: 86rpx;
+}
+.table .title-head > view:last-child {
+  width: 36rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.table .content {
+  display: flex;
+}
+.table .content-left {
+  width: 72rpx;
+  border-bottom: 1rpx solid #1C5E55;
+  box-sizing: border-box;
+  border-top: 0rpx;
+  background: #22705D;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 13rpx;
+  color: #fff;
+  font-weight: bold;
+  writing-mode: vertical-rl;
+}
+.table .content-left:last-child {
+  border-bottom: 0rpx;
+}
+.table .content .contain {
+  flex: 1;
+  border-left: 1rpx solid #1C5E55;
+}
+.table .content-right {
+  display: flex;
+  height: 90rpx;
+  width: 100%;
+}
+.table .content-right > view {
+  border: 1rpx solid #1C5E55;
+  border-left: 0rpx;
+  border-top: 0rpx;
+  box-sizing: border-box;
+}
+.table .content-right > view input,
+.table .content-right > view textarea {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  text-align: center;
+}
+.table .content-right > view:first-child {
+  width: 72rpx;
+  border-left: 0rpx;
+}
+.table .content-right > view:nth-child(2) {
+  width: 36rpx;
+  display: flex;
+  font-size: 28rpx;
+  justify-content: center;
+  align-items: center;
+}
+.table .content-right > view:nth-child(3) {
+  width: 210rpx;
+}
+.table .content-right > view:nth-child(4) {
+  flex: 1;
+}
+.table .content-right > view:last-child {
+  width: 36rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.table .content-right > view:nth-child(5) {
+  width: 86rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.table .content-right > view:nth-child(5) picker {
+  z-index: 99;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.table .content-right > view:nth-child(5) picker text:last-child {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  font-size: 20rpx;
+  justify-content: center;
+  align-items: center;
+}
+.table .tr {
+  display: flex;
+  height: 141rpx;
+}
+.table .tr .td1 {
+  justify-content: center;
+  align-items: center;
+  width: 72rpx;
+  border-bottom: 1rpx solid #1C5E55;
+  border-left: 1rpx solid #1C5E55;
+  display: flex;
+  background: #22705D;
+  color: #fff;
+  font-size: 13rpx;
+}
+.table .tr .td1:last-child {
+  border-bottom: 0rpx;
+}
+.table .tr .td2 {
+  flex: 1;
+  border-bottom: 1rpx solid #1C5E55;
+  border-left: 1rpx solid #1C5E55;
+}
+.table .tr .td2 textarea {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+.table .tr:last-child .td2 {
+  border-bottom: 0rpx;
+}
