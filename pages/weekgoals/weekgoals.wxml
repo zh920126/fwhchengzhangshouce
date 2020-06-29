@@ -175,7 +175,7 @@
 				      <text >总结</text>
 				      <text >改进</text>
 				    </view>
-				    <block wx:for="{{todaySummary}}">
+				    <block wx:for="{{todaySummary}}" wx:key="*this">
 				      <view class="des">
 				        <textarea value="{{item.content}}" bind:blur="handleUpdateSummary" data-info="{{item}}"></textarea>
 				      </view>

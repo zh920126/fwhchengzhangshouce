@@ -5,7 +5,8 @@
     "pages/quarterlygoals/quarterlygoals",
     "pages/monthgoals/monthgoals",
     "pages/weekgoals/weekgoals",
-    "pages/daygoals/daygoals"
+    "pages/daygoals/daygoals",
+    "pages/aa/aa"
   ],
   "window":{
     "backgroundTextStyle":"light",

@@ -353,7 +353,7 @@ Page({
         ]
       },
     ],
-    changeIndex: 2
+    changeIndex: 0
   },
 
   // 人生蓝图3是否完成

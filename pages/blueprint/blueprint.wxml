@@ -14,7 +14,7 @@
     <text>类别</text>
     <text>近期目标(1~3年内)</text>
   </view>
-  <block wx:for="{{arr}}" :key="type">
+  <block wx:for="{{arr}}" wx:key="type">
     <view class="tr">
       <view class="td1">{{item.type}}</view>
       <view class="td2">

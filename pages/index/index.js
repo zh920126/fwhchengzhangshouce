@@ -13,7 +13,7 @@ Page({
     },
     {
       name: '月度目标',
-      url: '/pages/monthygoals/monthygoals'
+      url: '/pages/aa/aa'
     },
     {
       name: '周目标',
@@ -38,10 +38,12 @@ Page({
         // 获取openid
         let res=await this.getUserOpenid(code)
         console.log(res);
+        
         // 将用户的唯一标识存起来
         wx.setStorageSync('userID',res.data.openid)
         // 将用户信息存储到本地
         wx.setStorageSync('userMsg',userInfo)
+        this.getUserInfo()
       }catch(error){
         wx.showToast({
           title:'登录失败,请重试',
@@ -316,11 +318,13 @@ Page({
     }
   },
   // 路由跳转
-  goToelsePage(v){
+  goToelsePage(e){
     // 如果用户登录成功才可以跳转
+    let {url}=e.currentTarget.dataset.info
+    console.log(url);
     if(wx.getStorageSync('userID')){
       wx.navigateTo({
-        url:v
+        url
       })
     }else{
       wx.showToast({
