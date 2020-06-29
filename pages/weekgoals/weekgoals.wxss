@@ -169,12 +169,14 @@ page {
 }
 .footer-left {
   width: 222rpx;
-  background: #2ECE94;
   font-size: 49rpx;
   color: #fff;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.footer-left image {
+  width: 100%;
 }
 .footer-right {
   width: 491rpx;
