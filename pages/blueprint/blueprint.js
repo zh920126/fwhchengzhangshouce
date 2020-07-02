@@ -364,34 +364,7 @@ Page({
     //已经写有内容的才能标注是否完成
     if(data.id){
       data.complete=!data.complete
-      let res=await app.myAxios({
-        url:'/anonymous/updateBlueprintDetailed',
-        method:'post',
-        data
-      })
-      if(res.data.statusCode==200){
-        // 先对页面进行更新,再发请求
-        // let {cateList}=this.data
-        // cateList.forEach((v,i)=>{
-        //   if(v.name===data.parentType){
-        //     v.children.forEach(v1=>{
-        //       if(v1.id===data.id){
-        //         v1.complete=!v.complete
-        //       }
-        //     })
-        //   }
-        // })
-        // this.setData({
-        //   cateList
-        // })
-        this.viewBlPrint3()
-      }else{
-        wx.showToast({
-          title:'更新数据失败,请重试',
-          icon:'none',
-          duration:500
-        })
-      }
+      this.updateMsg(data)
     }
   },
 
@@ -402,20 +375,7 @@ Page({
     let data =info
     data.startTime=value
     data.userid=wx.getStorageSync('userID');
-    let res=await app.myAxios({
-      url:'/anonymous/updateBlueprintDetailed',
-      method:'post',
-      data
-    })
-    if(res.data.statusCode==200){
-      this.viewBlPrint3()
-    }else{
-      wx.showToast({
-        title:'更新数据失败,请重试',
-        icon:'none',
-        duration:500
-      })
-    }
+    this.updateMsg(data)
   },
 
   // 人生蓝图3方法措施更新
@@ -425,20 +385,7 @@ Page({
     let data =info
     data.measures=value
     data.userid=wx.getStorageSync('userID');
-    let res=await app.myAxios({
-      url:'/anonymous/updateBlueprintDetailed',
-      method:'post',
-      data
-    })
-    if(res.data.statusCode==200){
-      this.viewBlPrint3()
-    }else{
-      wx.showToast({
-        title:'更新数据失败,请重试',
-        icon:'none',
-        duration:500
-      })
-    }
+    this.updateMsg(data)
   },
 
   // 人生蓝图3目标内容更新
@@ -448,6 +395,11 @@ Page({
     let data =info
     data.content=value
     data.userid=wx.getStorageSync('userID');
+    this.updateMsg(data)
+  },
+
+  // 蓝图3内容更新
+  async updateMsg(data){
     let res=await app.myAxios({
       url:'/anonymous/updateBlueprintDetailed',
       method:'post',

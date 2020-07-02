@@ -169,20 +169,7 @@ Page({
     if (info.id) {
       data.id = info.id
     }
-    let res = await app.myAxios({
-      method: 'post',
-      url: '/anonymous/updateSummarize',
-      data
-    })
-    if(res.data.statusCode==200){
-      this.getUserSummary()
-    }else{
-      wx.showToast({
-        title:'更新失败,请重试',
-        icon:'none',
-        duration:500
-      })
-    }
+    this.updateMsg(data)
   },
 
   // 更新完成状态
@@ -202,20 +189,7 @@ Page({
     // 有ID才能选择打勾
     if (info.id) {
       data.id = info.id
-      let res = await app.myAxios({
-        method: 'post',
-        url: '/anonymous/updateOrInsertAirms',
-        data
-      })
-      if(res.data.statusCode==200){
-        this.getUserQuarter()
-      }else{
-        uni.showToast({
-          title:'更新失败,请重试',
-          icon:'none',
-          duration:500
-        })
-      }
+      this.updateMsg(data)
     }
   },
 
@@ -237,20 +211,7 @@ Page({
     if (info.id) {
       data.id = info.id
     }
-    let res = await app.myAxios({
-      method: 'post',
-      url: '/anonymous/updateOrInsertAirms',
-      data
-    })
-    if(res.data.statusCode==200){
-      this.getUserQuarter()
-    }else{
-      wx.showToast({
-        title:'更新失败,请重试',
-        icon:'none',
-        duration:500
-      })
-    }
+    this.updateMsg(data)
   },
 
   // 更新方法和措施
@@ -271,20 +232,7 @@ Page({
     if (info.id) {
       data.id = info.id
     }
-    let res = await app.myAxios({
-      method: 'post',
-      url: '/anonymous/updateOrInsertAirms',
-      data
-    })
-    if(res.data.statusCode==200){
-      this.getUserQuarter()
-    }else{
-      uni.showToast({
-        title:'更新失败,请重试',
-        icon:'none',
-        duration:500
-      })
-    }
+    this.updateMsg(data)
   },
 
   //更新类别信息
@@ -305,6 +253,11 @@ Page({
     if (info.id) {
       data.id = info.id
     }
+    this.updateMsg(data)
+  },
+
+  // 更新数据
+  async updateMsg(data){
     let res = await app.myAxios({
       method: 'post',
       url: '/anonymous/updateOrInsertAirms',

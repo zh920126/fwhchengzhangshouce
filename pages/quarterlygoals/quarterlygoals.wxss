@@ -108,6 +108,9 @@ page {
 .table .tr .td2 .td3-son:nth-child(3) {
   flex: 1;
 }
+.table .tr .td2 .td3-son:nth-child(3) textarea {
+  border-left: 1rpx solid #1C5E55;
+}
 .table .tr .td2 .td3-son:last-child {
   width: 36rpx;
   display: flex;
@@ -119,11 +122,13 @@ page {
   height: 100%;
   width: 100%;
   text-align: center;
+  box-sizing: border-box;
 }
 .table .tr .td2 .td3-son > textarea {
   width: 100%;
   height: 100%;
   text-align: center;
+  box-sizing: border-box;
 }
 .box {
   margin: 17rpx 14rpx 0;
